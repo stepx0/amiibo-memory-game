@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import CardFrame, { CardModel } from './CardFrame'
 import '../scss/board.scss'
-import arrayShuffle from 'array-shuffle';
-import { v4 as uuidv4 } from 'uuid';
 
 
 
 type BoardProps = {
-    cardImages: string[]
+    cards: CardModel[]
 }
 
 function Board(props: BoardProps) {
@@ -17,15 +15,11 @@ function Board(props: BoardProps) {
     const [choiceTwo, setChoiceTwo] = useState<CardModel | null>(null);
     const [disabled, setDisabled] = useState<boolean>(false);
 
+    
+    const startGame = () => {
+        setCards(props.cards);
+        console.log(props.cards)
 
-    const shuffleCards = () => {
-        let doubleCards = arrayShuffle([...props.cardImages, ...props.cardImages]);
-        let shuffledCards = doubleCards.map(card => ({
-            id: uuidv4(),
-            src: card,
-            isMatched: false,
-        }))
-        setCards(shuffledCards);
         setChoiceOne(null);
         setChoiceTwo(null);
         setTurns(0);
@@ -35,10 +29,11 @@ function Board(props: BoardProps) {
         choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
     }
 
-    // start the game
-    useEffect(() => {
-        shuffleCards();
-    }, [])
+     // start the game
+     useEffect(() => {
+        console.log("startGame")
+        startGame();
+     }, [])
 
     // compare selected cards
     useEffect(() => {
@@ -72,7 +67,7 @@ function Board(props: BoardProps) {
     return (
         <div className="app">
             <p>Turns: {turns}</p>
-            <button onClick={shuffleCards} >New Game</button>
+            <button onClick={startGame} >New Game</button>
             <div className="cards-grid">
                 {cards?.map(card => (
                     <CardFrame key={card.id}

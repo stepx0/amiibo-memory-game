@@ -3,6 +3,7 @@ import '../scss/card.scss';
 export type CardModel = {
     id: string,
     src: string,
+    name: string,
     isMatched: boolean
 }
 

@@ -1,30 +1,12 @@
-import HeaderButton, { GameType } from './HeaderButton'
+import HeaderButton from './HeaderButton'
+import { GameType } from './App'
 import '../scss/header.scss'
 
 type HeaderProps = {
+    onGameSelected: (gameType: GameType) => void
 }
 
 const Header = (props: HeaderProps) => {
-
-    const onClick = (id: GameType) => {
-        switch (id) {
-            case GameType.MarioSportsSuperstars: {
-                console.log('Mario Sports Superstar');
-                //todo: call api to download cards
-                break;
-            }
-            case GameType.AnimalCrossing: {
-                console.log('Animal Crossing');
-                //todo: call api to download cards
-                break;
-            }
-            case GameType.Pokemon: {
-                console.log('pokemon');
-                //todo: call api to download cards
-                break;
-            }
-        }
-    }
 
     return (
         <header className='header'>
@@ -32,24 +14,24 @@ const Header = (props: HeaderProps) => {
                 className='header-button'
                 color='red'
                 text='Mario Sports Superstars'
-                onClick={(event) => {
-                    onClick(GameType.MarioSportsSuperstars)
+                onClick={() => {
+                    props.onGameSelected(GameType.MarioSportsSuperstars)
                 }} />
 
             <HeaderButton
                 className='header-button'
                 color='#F55806'
                 text='Animal Crossing'
-                onClick={(event) => {
-                    onClick(GameType.AnimalCrossing)
+                onClick={() => {
+                    props.onGameSelected(GameType.AnimalCrossing)
                 }} />
 
             <HeaderButton
                 className='header-button'
                 color='#183CFF'
                 text='Pokemon'
-                onClick={(event) => {
-                    onClick(GameType.Pokemon)
+                onClick={() => {
+                    props.onGameSelected(GameType.Pokemon)
                 }} />
         </header>
     )

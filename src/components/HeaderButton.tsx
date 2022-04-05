@@ -4,12 +4,6 @@ type ButtonProps = {
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export const enum GameType {
-    MarioSportsSuperstars,
-    AnimalCrossing,
-    Pokemon
-}
-
 export default function HeaderButton(props: ButtonProps) {
     return (
         <button
