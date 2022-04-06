@@ -1,12 +1,47 @@
-.header-button {
-    display: inline-block;
+
+  .options-button {
+    margin-top: 18px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 4px;
+  }
+
+  .options-button:hover {
+    box-shadow: 0px 3px 4px #ffff;
+    transform: translateY(-2px);
+  }
+
+  .options-selected {
+    color: #282c34;
+    background-color: #fff;
+  }
+  
+  .header-button {
+    margin-top: 18px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 4px;
+  }
+
+  .header-button:hover {
+    box-shadow: 0px 3px 4px #ffff;
+    transform: translateY(-2px);
+  }
+
+  .header-selected {
     color: #fff;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 4px;
-    font-family: inherit;
+    background-color: #282c34;
+  }
+
+  .mario-sports {
+    background-color: #b30000;
+  }
+  .animal-crossing {
+    background-color: #b35900;
+  }
+  .pokemon {
+    background-color: #005ab3;
+  }
+  .new-game {
+      background-color: #202020;
   }

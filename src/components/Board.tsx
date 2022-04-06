@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import CardFrame, { CardModel } from './CardFrame'
 import '../scss/board.scss'
-
+import { Difficulty, GameStatus } from './App'
 
 
 type BoardProps = {
-    cards: CardModel[]
+    cards: CardModel[],
+    difficulty: Difficulty,
+    onGameCompleted: (gameStatus: GameStatus) => void
 }
 
 function Board(props: BoardProps) {
@@ -15,23 +17,8 @@ function Board(props: BoardProps) {
     const [choiceTwo, setChoiceTwo] = useState<CardModel | null>(null);
     const [disabled, setDisabled] = useState<boolean>(false);
 
-
-    const startGame = () => {
-        setCards(props.cards);
-        console.log(props.cards)
-
-        setChoiceOne(null);
-        setChoiceTwo(null);
-        setTurns(0);
-    }
-
-    const handleChoice = (card: CardModel) => {
-        choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
-    }
-
     // start the game
     useEffect(() => {
-        console.log("startGame")
         startGame();
     }, [props.cards])
 
@@ -57,6 +44,28 @@ function Board(props: BoardProps) {
         }
     }, [choiceOne, choiceTwo])
 
+    // check if game is Completed
+    useEffect(() => {
+        let unmatchedCard = cards?.find(card => card.isMatched === false)
+
+        if (!unmatchedCard && (cards?.length ?? 0) > 0) {
+            setTimeout(() => props.onGameCompleted(GameStatus.Completed), 400)
+
+        }
+    }, [cards])
+
+    const startGame = () => {
+        setCards(props.cards)
+
+        setChoiceOne(null);
+        setChoiceTwo(null);
+        setTurns(0);
+    }
+
+    const handleChoice = (card: CardModel) => {
+        choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+    }
+
     const resetTurn = () => {
         setChoiceOne(null)
         setChoiceTwo(null)
@@ -65,10 +74,9 @@ function Board(props: BoardProps) {
     }
 
     return (
-        <div className="app">
-            <p>Turns: {turns}</p>
-            <button onClick={startGame} >New Game</button>
-            <div className="cards-grid">
+        <div className='app'>
+            <p className='board-label'> Turns: {turns}</p>
+            <div className={props.difficulty === Difficulty.Advanced ? 'cards-bigger-grid' : 'cards-grid'}>
                 {cards?.map(card => (
                     <CardFrame key={card.id}
                         cardData={card}

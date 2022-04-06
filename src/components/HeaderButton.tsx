@@ -1,10 +1,11 @@
 type ButtonProps = {
-    color: string,
+    color: string
     text: string,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export default function HeaderButton(props: ButtonProps) {
+
     return (
         <button
             className="btn"
