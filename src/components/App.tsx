@@ -53,7 +53,7 @@ function App() {
         }
         try {
             const res = await axios.get<AmiiboResponse>(`https://amiiboapi.com/api/amiibo/?gameseries=${param}`)
-            let amiiboCards =  parseAmiibosToCards(res.data.amiibo)
+            let amiiboCards = parseAmiibosToCards(res.data.amiibo)
             setCards(amiiboCards)
         } catch (e) {
             console.log(e)
@@ -80,11 +80,10 @@ function App() {
 
     return (
         <div className="App-container">
-            <Header onGameSelected={setGameSeries}/>
+            <Header onGameSelected={setGameSeries} />
             <Board cards={cards} />
         </div>
     );
 }
 
 export default App;
-

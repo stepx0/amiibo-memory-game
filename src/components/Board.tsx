@@ -15,7 +15,7 @@ function Board(props: BoardProps) {
     const [choiceTwo, setChoiceTwo] = useState<CardModel | null>(null);
     const [disabled, setDisabled] = useState<boolean>(false);
 
-    
+
     const startGame = () => {
         setCards(props.cards);
         console.log(props.cards)
@@ -29,11 +29,11 @@ function Board(props: BoardProps) {
         choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
     }
 
-     // start the game
-     useEffect(() => {
+    // start the game
+    useEffect(() => {
         console.log("startGame")
         startGame();
-     }, [])
+    }, [props.cards])
 
     // compare selected cards
     useEffect(() => {
