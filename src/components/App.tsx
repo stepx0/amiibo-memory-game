@@ -4,10 +4,11 @@ import { Amiibo } from '../api/models'
 import { getAmiibosByGameSeries } from '../api/AmiiboAPI'
 import Header from './Header'
 import Board from './Board'
-import CardsPresenter from './CardsPresenter'
+import CardsPresenter from './helpers/CardsPresenter'
 import { amiibosToCards } from '../api/parsers'
+import ApiCaller from './helpers/ApiCaller'
 
-function App() {
+const App = () => {
     const [amiibos, setAmiibos] = useState<Amiibo[]>([])
     const [cards, setCards] = useState<Card[]>([])
     const [gameSeries, setGameSeries] = useState<GameSeriesType>(GameSeriesType.MarioSportsSuperstars)
@@ -17,15 +18,12 @@ function App() {
 
     // reloading game
     useEffect(() => {
-        console.log(1)
         setGamePhase(GamePhase.Ready)
     }, [gameSeries, difficulty])
 
     // new amiibos received from api
     useEffect(() => {
-        console.log(3)
         if (amiibos.length > 0) {
-            console.log(3, "vero")
             setCards(
                 CardsPresenter<Amiibo>({
                     items: amiibos,
@@ -37,35 +35,16 @@ function App() {
         }
     }, [amiibos])
 
-    // game phase changed
+    // game phase management
     useEffect(() => {
         if (gamePhase === GamePhase.Ready) {
-            console.log(2)
-            getAmiibosByGameSeries(
-                getParamForAPICall(gameSeries),
-                setAmiibos
-            )
-        }
-        else if (gamePhase === GamePhase.Completed) {
-            console.log("last")
+            ApiCaller({
+                gameSeries: gameSeries,
+                callback: setAmiibos
+            })
+        } else if (gamePhase === GamePhase.Completed)
             alert("Congrats, you are a winner!!!")
-        }
     }, [gamePhase])
-
-
-    function getParamForAPICall(gameType: GameSeriesType): string {
-        switch (gameType) {
-            case GameSeriesType.MarioSportsSuperstars: {
-                return 'Mario Sports Superstars'
-            }
-            case GameSeriesType.AnimalCrossing: {
-                return 'Animal Crossing'
-            }
-            case GameSeriesType.Pokemon: {
-                return 'Pokemon'
-            }
-        }
-    }
 
 
     return (

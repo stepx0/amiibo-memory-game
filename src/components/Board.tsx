@@ -44,19 +44,17 @@ function Board(props: BoardProps) {
         }
     }, [choiceOne, choiceTwo])
 
-    // check if game is Completed
+    // check if game is completed
     useEffect(() => {
         let unmatchedCard = cards?.find(card => card.isMatched === false)
-
+        
         if (!unmatchedCard && (cards?.length ?? 0) > 0) {
             setTimeout(() => props.onGameCompleted(GamePhase.Completed), 400)
-
         }
     }, [cards])
 
     const startGame = () => {
         setCards(props.cards)
-
         setChoiceOne(null)
         setChoiceTwo(null)
         setTurns(0)

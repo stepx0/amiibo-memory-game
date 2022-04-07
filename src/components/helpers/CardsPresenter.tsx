@@ -1,4 +1,4 @@
-import { Card, Difficulty } from "../models/models"
+import { Card, Difficulty } from "../../models/models"
 import arrayShuffle from 'array-shuffle'
 
 type CardsPresenterProps<T> = {
@@ -10,7 +10,7 @@ type CardsPresenterProps<T> = {
 function CardsPresenter<T>(props: CardsPresenterProps<T>) {
 
     function prepareCards(): Card[] {
-        let slicedCards = sliceReceivedItems(props.items, getCardsNumber(props.difficulty))
+        let slicedCards = sliceReceivedItems(props.items, getNumberOfNumber(props.difficulty))
         let pairedCards = arrayShuffle([...slicedCards, ...slicedCards])
         return props.setCards(pairedCards)
     }
@@ -22,7 +22,7 @@ function CardsPresenter<T>(props: CardsPresenterProps<T>) {
         }
         return arrayShuffle(items).slice(0, numberOfCards)
     }
-    function getCardsNumber(difficulty: Difficulty): number {
+    function getNumberOfNumber(difficulty: Difficulty): number {
         switch (difficulty) {
             case Difficulty.Easy:
                 return 4

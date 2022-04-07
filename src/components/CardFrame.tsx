@@ -22,7 +22,6 @@ function CardFrame(props: CardFrameProps) {
                 <img className='front'
                     src={props.cardData.src}
                     alt={'card front'} />
-
                 <img className='back'
                     src='/img/nintendo-logo.png'
                     onClick={handleClick}

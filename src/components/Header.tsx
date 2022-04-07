@@ -14,43 +14,54 @@ const Header = (props: HeaderProps) => {
     return (
         <>
             <header className='header'>
+                {/*Mario Sports Superstars*/}
                 <button
                     className='options-button mario-sports'
                     onClick={() => {
                         props.onGameSeriesSelected(GameSeriesType.MarioSportsSuperstars)
                     }}>Mario Sports Superstars</button>
+
+                {/*Animal Crossing*/}
                 <button
                     className='options-button animal-crossing'
                     onClick={() => {
                         props.onGameSeriesSelected(GameSeriesType.AnimalCrossing)
                     }}>Animal Crossing</button>
-                <button
-                    className='options-button pokemon'
+
+                {/*Pokémon*/}
+                <button className='options-button pokemon'
                     onClick={() => {
                         props.onGameSeriesSelected(GameSeriesType.Pokemon)
-                    }}>Pokemon</button>
+                    }}>Pokémon</button>
             </header>
+
             <div>
+                {/*Easy*/}
                 <button className={`options-button ${(props.currentSelectedDifficulty === Difficulty.Easy) ? 'options-selected' : ''}`}
                     onClick={() => {
                         props.onDifficultySelected(Difficulty.Easy)
                     }}> Easy </button>
+
+                {/*Medium*/}
                 <button className={`options-button ${(props.currentSelectedDifficulty === Difficulty.Medium) ? 'options-selected' : ''}`}
                     onClick={() => {
                         props.onDifficultySelected(Difficulty.Medium)
                     }}> Medium </button>
+
+                {/*Advanced*/}
                 <button className={`options-button ${(props.currentSelectedDifficulty === Difficulty.Advanced) ? 'options-selected' : ''}`}
                     onClick={() => {
                         props.onDifficultySelected(Difficulty.Advanced)
                     }}> Advanced </button>
             </div>
+
             <div>
+                {/*New Game*/}
                 <button
                     className='options-button new-game'
                     onClick={() => { props.onNewGameClicked(GamePhase.Ready) }}>New Game</button>
             </div>
         </>
-
     )
 }
 
