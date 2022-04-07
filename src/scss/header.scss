@@ -1,4 +1,17 @@
+@import 'App';
 
+button {
+    background: none;
+    border: 1px solid white;
+    padding: 6px 12px;
+    margin-left: 6px;
+    margin-right: 6px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
   .options-button {
     margin-top: 18px;
     margin-left: 8px;
@@ -7,41 +20,30 @@
   }
 
   .options-button:hover {
-    box-shadow: 0px 3px 4px #ffff;
+    box-shadow: 0px 3px 4px white;
     transform: translateY(-2px);
   }
 
   .options-selected {
-    color: #282c34;
-    background-color: #fff;
-  }
-  
-  .header-button {
-    margin-top: 18px;
-    margin-left: 8px;
-    margin-right: 8px;
-    border-radius: 4px;
-  }
-
-  .header-button:hover {
-    box-shadow: 0px 3px 4px #ffff;
-    transform: translateY(-2px);
+    color: $primary-color;
+    background-color: white;
   }
 
   .header-selected {
-    color: #fff;
-    background-color: #282c34;
+    color: white;
+    background-color: $primary-color;
   }
 
   .mario-sports {
-    background-color: #b30000;
+    background-color: $mario-sports-color;
   }
+
   .animal-crossing {
-    background-color: #b35900;
+    background-color: $animal-crossing-color;
   }
   .pokemon {
-    background-color: #005ab3;
+    background-color: $pokemon-color;
   }
   .new-game {
-      background-color: #202020;
+      background-color: $primary-dark-color;
   }

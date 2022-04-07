@@ -1,16 +1,10 @@
-import '../scss/card.scss';
-
-export type CardModel = {
-    id: string,
-    src: string,
-    name: string,
-    isMatched: boolean
-}
+import { Card } from '../models/models'
+import '../scss/card.scss'
 
 type CardFrameProps = {
     key: string,
-    cardData: CardModel,
-    onClick: (card: CardModel) => void,
+    cardData: Card,
+    onClick: (card: Card) => void,
     isFlipped: boolean,
     isDisabled: boolean
 }
@@ -20,7 +14,7 @@ function CardFrame(props: CardFrameProps) {
     const handleClick = () => {
         if (!props.isDisabled)
             props.onClick(props.cardData)
-    };
+    }
 
     return (
         <div className='card'>

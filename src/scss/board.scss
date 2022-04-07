@@ -1,23 +1,24 @@
 
 
-  .board-label {
+.board-label {
     font-size: 24px;
-  }
+    color: white;
+}
 
-  .cards-grid {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 16px;
-      overflow: hidden;
-      padding: 8px;
-  }
-
-  .cards-bigger-grid {
+@mixin cards-grid {
     margin-top: 28px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
     grid-gap: 16px;
     overflow: hidden;
     padding: 8px;
+}
+
+.cards-small-grid {
+    @include cards-grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.cards-big-grid {
+    @include cards-grid;
+    grid-template-columns: repeat(6, 1fr);
 }

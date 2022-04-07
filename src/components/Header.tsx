@@ -1,12 +1,11 @@
-import HeaderButton from './HeaderButton'
-import { Difficulty, GameStatus, GameType } from './App'
 import '../scss/header.scss'
+import { GameSeriesType, Difficulty, GamePhase } from '../models/models'
 
 type HeaderProps = {
-    currentSelectedGame: GameType,
+    currentSelectedGame: GameSeriesType,
     currentSelectedDifficulty: Difficulty,
-    onGameSelected: (gameType: GameType) => void,
-    onNewGameClicked: (gameStatus: GameStatus) => void,
+    onGameSeriesSelected: (gameType: GameSeriesType) => void,
+    onNewGameClicked: (gameStatus: GamePhase) => void,
     onDifficultySelected: (difficulty: Difficulty) => void,
 }
 
@@ -15,20 +14,20 @@ const Header = (props: HeaderProps) => {
     return (
         <>
             <header className='header'>
-                    <button
-                    className={`header-button mario-sports ${props.currentSelectedGame === GameType.MarioSportsSuperstars ? 'header-selected' : ''}`}
+                <button
+                    className='options-button mario-sports'
                     onClick={() => {
-                        props.onGameSelected(GameType.MarioSportsSuperstars)
+                        props.onGameSeriesSelected(GameSeriesType.MarioSportsSuperstars)
                     }}>Mario Sports Superstars</button>
                 <button
-                    className={`header-button animal-crossing ${props.currentSelectedGame === GameType.AnimalCrossing ? 'header-selected' : ''}`}
+                    className='options-button animal-crossing'
                     onClick={() => {
-                        props.onGameSelected(GameType.AnimalCrossing)
+                        props.onGameSeriesSelected(GameSeriesType.AnimalCrossing)
                     }}>Animal Crossing</button>
                 <button
-                    className={`header-button pokemon ${props.currentSelectedGame === GameType.Pokemon ? 'header-selected' : ''}`}
+                    className='options-button pokemon'
                     onClick={() => {
-                        props.onGameSelected(GameType.Pokemon)
+                        props.onGameSeriesSelected(GameSeriesType.Pokemon)
                     }}>Pokemon</button>
             </header>
             <div>
@@ -48,7 +47,7 @@ const Header = (props: HeaderProps) => {
             <div>
                 <button
                     className='options-button new-game'
-                    onClick={() => { props.onNewGameClicked(GameStatus.Ready) }}>New Game</button>
+                    onClick={() => { props.onNewGameClicked(GamePhase.Ready) }}>New Game</button>
             </div>
         </>
 

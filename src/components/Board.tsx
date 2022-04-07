@@ -1,25 +1,25 @@
-import { useEffect, useRef, useState } from 'react'
-import CardFrame, { CardModel } from './CardFrame'
+import { useEffect, useState } from 'react'
 import '../scss/board.scss'
-import { Difficulty, GameStatus } from './App'
+import { Difficulty, GamePhase, Card } from '../models/models'
+import CardFrame from './CardFrame'
 
 
 type BoardProps = {
-    cards: CardModel[],
+    cards: Card[],
     difficulty: Difficulty,
-    onGameCompleted: (gameStatus: GameStatus) => void
+    onGameCompleted: (gameStatus: GamePhase) => void
 }
 
 function Board(props: BoardProps) {
-    const [cards, setCards] = useState<CardModel[]>();
-    const [turns, setTurns] = useState<number>(0);
-    const [choiceOne, setChoiceOne] = useState<CardModel | null>(null);
-    const [choiceTwo, setChoiceTwo] = useState<CardModel | null>(null);
-    const [disabled, setDisabled] = useState<boolean>(false);
+    const [cards, setCards] = useState<Card[]>()
+    const [turns, setTurns] = useState<number>(0)
+    const [choiceOne, setChoiceOne] = useState<Card | null>(null)
+    const [choiceTwo, setChoiceTwo] = useState<Card | null>(null)
+    const [disabled, setDisabled] = useState<boolean>(false)
 
     // start the game
     useEffect(() => {
-        startGame();
+        startGame()
     }, [props.cards])
 
     // compare selected cards
@@ -36,8 +36,8 @@ function Board(props: BoardProps) {
                             }
                         else return card
                     })
-                });
-                resetTurn();
+                })
+                resetTurn()
             } else {
                 setTimeout(() => resetTurn(), 1000)
             }
@@ -49,7 +49,7 @@ function Board(props: BoardProps) {
         let unmatchedCard = cards?.find(card => card.isMatched === false)
 
         if (!unmatchedCard && (cards?.length ?? 0) > 0) {
-            setTimeout(() => props.onGameCompleted(GameStatus.Completed), 400)
+            setTimeout(() => props.onGameCompleted(GamePhase.Completed), 400)
 
         }
     }, [cards])
@@ -57,13 +57,13 @@ function Board(props: BoardProps) {
     const startGame = () => {
         setCards(props.cards)
 
-        setChoiceOne(null);
-        setChoiceTwo(null);
-        setTurns(0);
+        setChoiceOne(null)
+        setChoiceTwo(null)
+        setTurns(0)
     }
 
-    const handleChoice = (card: CardModel) => {
-        choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+    const handleChoice = (card: Card) => {
+        choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
     }
 
     const resetTurn = () => {
@@ -76,7 +76,7 @@ function Board(props: BoardProps) {
     return (
         <div className='app'>
             <p className='board-label'> Turns: {turns}</p>
-            <div className={props.difficulty === Difficulty.Advanced ? 'cards-bigger-grid' : 'cards-grid'}>
+            <div className={props.difficulty === Difficulty.Advanced ? 'cards-big-grid' : 'cards-small-grid'}>
                 {cards?.map(card => (
                     <CardFrame key={card.id}
                         cardData={card}
@@ -89,4 +89,4 @@ function Board(props: BoardProps) {
     )
 }
 
-export default Board;
+export default Board

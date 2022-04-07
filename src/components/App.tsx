@@ -1,128 +1,101 @@
-import { useEffect, useState } from 'react';
-import '../scss/App.scss';
-import Header from './Header';
-import Board from './Board';
-import axios from 'axios';
-import { CardModel } from './CardFrame';
-import arrayShuffle from 'array-shuffle';
-import { v4 as uuidv4 } from 'uuid';
-
-export const enum GameType {
-    MarioSportsSuperstars,
-    AnimalCrossing,
-    Pokemon
-}
-
-export const enum Difficulty {
-    Easy,
-    Medium,
-    Advanced
-}
-
-export const enum GameStatus {
-    Ready,
-    Ongoing,
-    Completed
-}
-
-type AmiiboResponse = {
-    amiibo: Amiibo[]
-}
-
-export type Amiibo = {
-    amiiboSeries: string,
-    character: string,
-    gameSeries: string,
-    head: string,
-    image: string,
-    name: string,
-    tail: string,
-    type: String
-}
+import { useEffect, useState } from 'react'
+import { Difficulty, GamePhase, GameSeriesType, Card } from '../models/models'
+import { Amiibo } from '../api/models'
+import { getAmiibosByGameSeries } from '../api/AmiiboAPI'
+import arrayShuffle from 'array-shuffle'
+import { v4 as uuidv4 } from 'uuid'
+import Header from './Header'
+import Board from './Board'
 
 function App() {
-    const [amiibos, setAmiibos] = useState<Amiibo[]>([]);
-    const [cards, setCards] = useState<CardModel[]>([]);
-    const [gameSeries, setGameSeries] = useState<GameType>(GameType.MarioSportsSuperstars);
-    const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.Easy);
-    const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Ongoing);
+    const [amiibos, setAmiibos] = useState<Amiibo[]>([])
+    const [cards, setCards] = useState<Card[]>([])
+    const [gameSeries, setGameSeries] = useState<GameSeriesType>(GameSeriesType.MarioSportsSuperstars)
+    const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.Easy)
+    const [gamePhase, setGamePhase] = useState<GamePhase>()
 
-    const getAmiibosByGameSeries = async (gameType: GameType) => {
-        let param: string
 
-        switch (gameType) {
-            case GameType.MarioSportsSuperstars: {
-                param = 'Mario Sports Superstars'
-                break;
-            }
-            case GameType.AnimalCrossing: {
-                param = 'Animal Crossing'
-                break;
-            }
-            case GameType.Pokemon: {
-                param = 'Pokemon'
-                break;
-            }
-        }
-
-        try {
-            const res = await axios.get<AmiiboResponse>(`https://amiiboapi.com/api/amiibo/?gameseries=${param}`)
-            setAmiibos(res.data.amiibo)
-        } catch (e) {
-            alert(e)
-        }
-    }
-
+    // reloading game
     useEffect(() => {
-        console.log('gameseries selected, now ready')
-        setGameStatus(GameStatus.Ready)
-    }, [gameSeries])
+        setGamePhase(GamePhase.Ready)
+    }, [gameSeries, difficulty])
 
+    // new amiibos received from api || difficulty changed
     useEffect(() => {
-        console.log('amiibos changed')
+        console.log(3)
         if (amiibos.length > 0) {
+            console.log(3, "vero")
             setCards(prepareCards(amiibos, difficulty))
-            setGameStatus(GameStatus.Ongoing)
+            setGamePhase(GamePhase.Ongoing)
         }
-    }, [amiibos, difficulty])
+    }, [amiibos])
 
+    // game phase changed
     useEffect(() => {
-        if (gameStatus === GameStatus.Ready)
-            getAmiibosByGameSeries(gameSeries)
-        else if (gameStatus === GameStatus.Completed)
-            alert("Completed!!!!")
-    }, [gameStatus])
+        if (gamePhase === GamePhase.Ready) {
+            console.log(2)
+            getAmiibosByGameSeries(
+                getParamForAPICall(gameSeries),
+                setAmiibos
+            )
+        }
+        else if (gamePhase === GamePhase.Completed) {
+            console.log("last")
+            alert("Congrats, you are a winner!!!")
+        }
+    }, [gamePhase])
 
-    function prepareCards(amiibos: Amiibo[], difficulty: Difficulty): CardModel[] {
-        let numberOfCards = getNumberOfCardsFromDifficulty(difficulty)
-        return parseAmiibosToCards(amiibos, numberOfCards);
+
+    // starting game
+    function prepareCards(amiibos: Amiibo[], difficulty: Difficulty): Card[] {
+        return parseAmiibosToCards(
+            amiibos,
+            getCardsNumber(difficulty)
+        )
     }
 
-    function parseAmiibosToCards(amiibos: Amiibo[], numberOfCards: number): CardModel[] {
-        if (amiibos.length < numberOfCards) {
-            alert("There are not enough cards in this game series!\n\nTry another one please.")
-            return [];
-        }
-
-        let limitedNumberOfAmiibos = arrayShuffle(amiibos).slice(0, numberOfCards)
-        let pairedCards = arrayShuffle([...limitedNumberOfAmiibos, ...limitedNumberOfAmiibos])
-        let parsedCards: CardModel[] = pairedCards.map(amiibo => ({
+    function parseAmiibosToCards(amiibos: Amiibo[], numberOfCards: number): Card[] {
+        let pairedCards = sliceReceivedData(amiibos, numberOfCards)
+        let parsedCards: Card[] = pairedCards.map(amiibo => ({
             id: uuidv4(),
             src: amiibo.image,
             name: amiibo.name,
             isMatched: false,
         }))
-        return parsedCards;
+        return parsedCards
     }
 
-    function getNumberOfCardsFromDifficulty(difficulty: Difficulty): number {
+    function sliceReceivedData<T>(data: T[], numberOfCards: number): T[] {
+        if (data.length < numberOfCards) {
+            alert("There are not enough cards in this game series!\n\nTry another one please.")
+            return []
+        }
+        let slicedData: T[] = arrayShuffle(data).slice(0, numberOfCards)
+        return arrayShuffle([...slicedData, ...slicedData])
+    }
+
+    function getParamForAPICall(gameType: GameSeriesType): string {
+        switch (gameType) {
+            case GameSeriesType.MarioSportsSuperstars: {
+                return 'Mario Sports Superstars'
+            }
+            case GameSeriesType.AnimalCrossing: {
+                return 'Animal Crossing'
+            }
+            case GameSeriesType.Pokemon: {
+                return 'Pokemon'
+            }
+        }
+    }
+
+    function getCardsNumber(difficulty: Difficulty): number {
         switch (difficulty) {
             case Difficulty.Easy:
-                return 4;
+                return 4
             case Difficulty.Medium:
-                return 6;
+                return 6
             case Difficulty.Advanced:
-                return 9;
+                return 9
         }
     }
 
@@ -131,14 +104,14 @@ function App() {
             <Header
                 currentSelectedGame={gameSeries}
                 currentSelectedDifficulty={difficulty}
-                onGameSelected={setGameSeries}
-                onNewGameClicked={setGameStatus}
+                onGameSeriesSelected={setGameSeries}
+                onNewGameClicked={setGamePhase}
                 onDifficultySelected={setDifficulty} />
             <Board cards={cards}
                 difficulty={difficulty}
-                onGameCompleted={setGameStatus} />
+                onGameCompleted={setGamePhase} />
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
