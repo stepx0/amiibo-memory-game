@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { Difficulty, GamePhase, GameSeriesType, Card } from '../models/models'
 import { Amiibo } from '../api/models'
 import { getAmiibosByGameSeries } from '../api/AmiiboAPI'
-import arrayShuffle from 'array-shuffle'
-import { v4 as uuidv4 } from 'uuid'
 import Header from './Header'
 import Board from './Board'
+import CardsPresenter from './CardsPresenter'
+import { amiibosToCards } from '../api/parsers'
 
 function App() {
     const [amiibos, setAmiibos] = useState<Amiibo[]>([])
@@ -17,15 +17,22 @@ function App() {
 
     // reloading game
     useEffect(() => {
+        console.log(1)
         setGamePhase(GamePhase.Ready)
     }, [gameSeries, difficulty])
 
-    // new amiibos received from api || difficulty changed
+    // new amiibos received from api
     useEffect(() => {
         console.log(3)
         if (amiibos.length > 0) {
             console.log(3, "vero")
-            setCards(prepareCards(amiibos, difficulty))
+            setCards(
+                CardsPresenter<Amiibo>({
+                    items: amiibos,
+                    difficulty: difficulty,
+                    setCards: amiibosToCards
+                })
+            )
             setGamePhase(GamePhase.Ongoing)
         }
     }, [amiibos])
@@ -46,34 +53,6 @@ function App() {
     }, [gamePhase])
 
 
-    // starting game
-    function prepareCards(amiibos: Amiibo[], difficulty: Difficulty): Card[] {
-        return parseAmiibosToCards(
-            amiibos,
-            getCardsNumber(difficulty)
-        )
-    }
-
-    function parseAmiibosToCards(amiibos: Amiibo[], numberOfCards: number): Card[] {
-        let pairedCards = sliceReceivedData(amiibos, numberOfCards)
-        let parsedCards: Card[] = pairedCards.map(amiibo => ({
-            id: uuidv4(),
-            src: amiibo.image,
-            name: amiibo.name,
-            isMatched: false,
-        }))
-        return parsedCards
-    }
-
-    function sliceReceivedData<T>(data: T[], numberOfCards: number): T[] {
-        if (data.length < numberOfCards) {
-            alert("There are not enough cards in this game series!\n\nTry another one please.")
-            return []
-        }
-        let slicedData: T[] = arrayShuffle(data).slice(0, numberOfCards)
-        return arrayShuffle([...slicedData, ...slicedData])
-    }
-
     function getParamForAPICall(gameType: GameSeriesType): string {
         switch (gameType) {
             case GameSeriesType.MarioSportsSuperstars: {
@@ -88,16 +67,6 @@ function App() {
         }
     }
 
-    function getCardsNumber(difficulty: Difficulty): number {
-        switch (difficulty) {
-            case Difficulty.Easy:
-                return 4
-            case Difficulty.Medium:
-                return 6
-            case Difficulty.Advanced:
-                return 9
-        }
-    }
 
     return (
         <div className="App-container">
