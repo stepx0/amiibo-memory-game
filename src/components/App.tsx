@@ -16,6 +16,17 @@ const App = () => {
     const [gamePhase, setGamePhase] = useState<GamePhase>()
 
 
+        // game phase management
+        useEffect(() => {
+            if (gamePhase === GamePhase.Ready) {
+                ApiCaller({
+                    gameSeries: gameSeries,
+                    callback: setAmiibos
+                })
+            } else if (gamePhase === GamePhase.Completed)
+                alert("Congrats, you are a winner!!!")
+        }, [gamePhase])
+        
     // reloading game
     useEffect(() => {
         setGamePhase(GamePhase.Ready)
@@ -34,17 +45,6 @@ const App = () => {
             setGamePhase(GamePhase.Ongoing)
         }
     }, [amiibos])
-
-    // game phase management
-    useEffect(() => {
-        if (gamePhase === GamePhase.Ready) {
-            ApiCaller({
-                gameSeries: gameSeries,
-                callback: setAmiibos
-            })
-        } else if (gamePhase === GamePhase.Completed)
-            alert("Congrats, you are a winner!!!")
-    }, [gamePhase])
 
 
     return (

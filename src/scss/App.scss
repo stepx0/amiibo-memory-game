@@ -5,18 +5,18 @@ $animal-crossing-color: #b35900;
 $pokemon-color: #005ab3;
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 
 .App-container {
-  background-color: $primary-dark-color;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: top;
-  font-size: calc(10px + 2vmin);
-  text-align: center;
+    background-color: $primary-dark-color;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    font-size: calc(10px + 2vmin);
+    text-align: center;
 }

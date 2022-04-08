@@ -10,40 +10,42 @@ button {
     color: white;
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  .options-button {
+}
+
+.options-button {
     margin-top: 18px;
     margin-left: 8px;
     margin-right: 8px;
     border-radius: 4px;
-  }
+}
 
-  .options-button:hover {
+.options-button:hover {
     box-shadow: 0px 3px 4px white;
     transform: translateY(-2px);
-  }
+}
 
-  .options-selected {
+.options-selected {
     color: $primary-color;
     background-color: white;
-  }
+}
 
-  .header-selected {
+.header-selected {
     color: white;
     background-color: $primary-color;
-  }
+}
 
-  .mario-sports {
+.mario-sports {
     background-color: $mario-sports-color;
-  }
+}
 
-  .animal-crossing {
+.animal-crossing {
     background-color: $animal-crossing-color;
-  }
-  .pokemon {
+}
+
+.pokemon {
     background-color: $pokemon-color;
-  }
-  .new-game {
-      background-color: $primary-dark-color;
-  }
+}
+
+.new-game {
+    background-color: $primary-dark-color;
+}
