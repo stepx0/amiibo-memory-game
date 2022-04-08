@@ -1,4 +1,4 @@
-import { Card, Difficulty } from "../../models/models"
+import { Card, Difficulty } from "../models/models"
 import arrayShuffle from 'array-shuffle'
 
 type CardsPresenterProps<T> = {

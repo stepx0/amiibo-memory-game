@@ -1,6 +1,6 @@
-import { getAmiibosByGameSeries } from "../../api/AmiiboAPI"
-import { Amiibo } from "../../api/models"
-import { GameSeriesType } from "../../models/models"
+import { getAmiibosByGameSeries } from "./AmiiboAPI"
+import { Amiibo } from "./models"
+import { GameSeriesType } from "../models/models"
 
 type ApiCallerProps = {
     gameSeries: GameSeriesType,

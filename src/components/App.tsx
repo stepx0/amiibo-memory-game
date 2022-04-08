@@ -4,9 +4,9 @@ import { Amiibo } from '../api/models'
 import { getAmiibosByGameSeries } from '../api/AmiiboAPI'
 import Header from './Header'
 import Board from './Board'
-import CardsPresenter from './helpers/CardsPresenter'
+import CardsPresenter from './CardsPresenter'
 import { amiibosToCards } from '../api/parsers'
-import ApiCaller from './helpers/ApiCaller'
+import ApiCaller from '../api/ApiCaller'
 
 const App = () => {
     const [amiibos, setAmiibos] = useState<Amiibo[]>([])
