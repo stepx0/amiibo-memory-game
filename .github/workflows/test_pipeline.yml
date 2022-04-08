@@ -13,7 +13,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build App
-        run: npm build
+        run: npm run build
       - name: Test App
         run: npm test
       - name: Docker Login
