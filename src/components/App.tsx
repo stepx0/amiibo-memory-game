@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Difficulty, GamePhase, GameSeriesType, Card } from '../models/models'
 import { Amiibo } from '../api/models'
-import { getAmiibosByGameSeries } from '../api/AmiiboAPI'
 import Header from './Header'
 import Board from './Board'
 import CardsPresenter from './CardsPresenter'

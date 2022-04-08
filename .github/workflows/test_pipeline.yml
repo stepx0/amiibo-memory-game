@@ -12,8 +12,8 @@ jobs:
           node-version: '16.8'
       - name: Install Dependencies
         run: npm install
-      - name: Build App
-        run: npm run build
+#      - name: Build App
+#        run: npm run build
       - name: Test App
         run: npm test
       - name: Docker Login
