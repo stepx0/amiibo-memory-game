@@ -5,15 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.0.1]
     steps:
-    - uses: actions/checkout@v2
-    - name: Testing
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          tags: user/amiibo-memory-game:latest
