@@ -1,5 +1,4 @@
 import { Card, Difficulty } from "../models/models"
-import arrayShuffle from 'array-shuffle'
 
 type CardsPresenterProps<T> = {
     items: T[],
@@ -11,17 +10,18 @@ function CardsPresenter<T>(props: CardsPresenterProps<T>) {
 
     function prepareCards(): Card[] {
         let slicedCards = sliceReceivedItems(props.items, getNumberOfNumber(props.difficulty))
-        let pairedCards = arrayShuffle([...slicedCards, ...slicedCards])
+        let pairedCards = shuffle([...slicedCards, ...slicedCards])
         return props.setCards(pairedCards)
     }
 
-    function sliceReceivedItems<T>(items: T[], numberOfCards: number): T[] {
+    function sliceReceivedItems(items: T[], numberOfCards: number): T[] {
         if (items.length < numberOfCards) {
             alert("There are not enough cards in this game series!\n\nTry another one please.")
             return []
         }
-        return arrayShuffle(items).slice(0, numberOfCards)
+        return shuffle(items).slice(0, numberOfCards)
     }
+
     function getNumberOfNumber(difficulty: Difficulty): number {
         switch (difficulty) {
             case Difficulty.Easy:
@@ -32,6 +32,21 @@ function CardsPresenter<T>(props: CardsPresenterProps<T>) {
                 return 9
         }
     }
+
+    function shuffle(array: T[]): T[] {
+        let currentIndex = array.length, randomIndex;
+
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+
 
     return prepareCards()
 }
