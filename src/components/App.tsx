@@ -1,64 +1,32 @@
-import { useEffect, useState } from 'react'
-import { Difficulty, GamePhase, GameSeriesType, Card } from '../models/models'
-import { Amiibo } from '../api/models'
-import { getAmiibosByGameSeries } from '../api/AmiiboAPI'
-import Header from './Header'
-import Board from './Board'
-import CardsPresenter from './CardsPresenter'
-import { amiibosToCards } from '../api/parsers'
-import ApiCaller from '../api/ApiCaller'
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client';
+import { onError } from "@apollo/client/link/error";
+import { RestLink } from 'apollo-link-rest';
+import Game from './Game'
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+        graphQLErrors.map(({ message }) => {
+            alert(`GraphQL error ${message}`);
+        })
+    }
+})
+
+const link = from([
+    errorLink,
+    new RestLink({ uri: "https://amiiboapi.com/api/" })
+])
+
+// Setup your client
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: link
+});
 
 const App = () => {
-    const [amiibos, setAmiibos] = useState<Amiibo[]>([])
-    const [cards, setCards] = useState<Card[]>([])
-    const [gameSeries, setGameSeries] = useState<GameSeriesType>(GameSeriesType.MarioSportsSuperstars)
-    const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.Easy)
-    const [gamePhase, setGamePhase] = useState<GamePhase>()
-
-
-        // game phase management
-        useEffect(() => {
-            if (gamePhase === GamePhase.Ready) {
-                ApiCaller({
-                    gameSeries: gameSeries,
-                    callback: setAmiibos
-                })
-            } else if (gamePhase === GamePhase.Completed)
-                alert("Congrats, you are a winner!!!")
-        }, [gamePhase])
-        
-    // reloading game
-    useEffect(() => {
-        setGamePhase(GamePhase.Ready)
-    }, [gameSeries, difficulty])
-
-    // new amiibos received from api
-    useEffect(() => {
-        if (amiibos.length > 0) {
-            setCards(
-                CardsPresenter<Amiibo>({
-                    items: amiibos,
-                    difficulty: difficulty,
-                    setCards: amiibosToCards
-                })
-            )
-            setGamePhase(GamePhase.Ongoing)
-        }
-    }, [amiibos])
-
-
     return (
-        <div className="App-container">
-            <Header
-                currentSelectedGame={gameSeries}
-                currentSelectedDifficulty={difficulty}
-                onGameSeriesSelected={setGameSeries}
-                onNewGameClicked={setGamePhase}
-                onDifficultySelected={setDifficulty} />
-            <Board cards={cards}
-                difficulty={difficulty}
-                onGameCompleted={setGamePhase} />
-        </div>
+        <ApolloProvider client={client}>
+            <Game />
+        </ApolloProvider>
     )
 }
 

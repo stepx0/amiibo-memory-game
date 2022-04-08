@@ -39,7 +39,7 @@ function Board(props: BoardProps) {
                 })
                 resetTurn()
             } else {
-                setTimeout(() => resetTurn(), 1000)
+                setTimeout(() => resetTurn(), 500)
             }
         }
     }, [choiceOne, choiceTwo])
