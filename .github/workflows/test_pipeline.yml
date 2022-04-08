@@ -30,4 +30,4 @@ jobs:
           docker push ${{secrets.DOCKER_USER}}/amiibo-memory-game
       - name: Testing Docker
         run: |
-          docker run --entrypoint '/bin/sh' stepiasentin/amiibo-memory-game 'npm test'
+          docker run -e CI=true stepiasentin/amiibo-memory-game npm run test
