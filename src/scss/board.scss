@@ -1,6 +1,12 @@
+@import 'app';
+
+.board {
+    margin: 24px;
+}
+
 .board-label {
-    font-size: 24px;
-    color: white;
+    font-size: 22px;
+    color: $text-color;
 }
 
 @mixin cards-grid {
@@ -9,14 +15,56 @@
     grid-gap: 16px;
     overflow: hidden;
     padding: 8px;
+    height:100%;
+}
+
+@mixin cards-big-margin {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .cards-small-grid {
     @include cards-grid;
-    grid-template-columns: repeat(4, 1fr);
+    
+    /* desktop screen */
+    @media (min-width: 801px){
+        grid-template-columns: repeat(4, 1fr);
+    }
+     
+    /* mobile screen */
+    @media (max-width: 800px){
+        grid-template-columns: repeat(2, 1fr);
+        
+    }
+}
+
+.cards-medium-grid {
+    @include cards-grid;
+    
+    /* desktop screen */
+    @media (min-width: 801px){
+        grid-template-columns: repeat(4, 1fr);
+    }
+     
+    /* mobile screen */
+    @media (max-width: 800px){
+        grid-template-columns: repeat(3, 1fr);
+        @include cards-big-margin;
+
+    }
 }
 
 .cards-big-grid {
     @include cards-grid;
-    grid-template-columns: repeat(6, 1fr);
+       
+    /* desktop screen */
+    @media (min-width: 801px){
+        grid-template-columns: repeat(6, 1fr);
+    }
+     
+    /* mobile screen */
+    @media (max-width: 800px){
+        grid-template-columns: repeat(3, 1fr);
+        @include cards-big-margin;
+    }
 }

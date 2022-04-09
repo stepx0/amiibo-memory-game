@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Card } from '../components/CardsPresenter'
-import { Amiibo } from './queries'
+import { Amiibo } from './Queries'
 
 export const amiibosToCards = (amiibos: Amiibo[]) => {
     let parsedCards: Card[] = amiibos.map(amiibo => ({

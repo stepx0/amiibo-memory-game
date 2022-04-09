@@ -1,27 +1,47 @@
 @import 'app';
 
+.header {
+    border: 1px white;
+    /* desktop screen */
+    @media (min-width: 801px){
+    }
+     
+    /* mobile screen */
+    @media (max-width: 800px){
+    }
+}
+
 button {
-    background: none;
-    border: 1px solid white;
-    padding: 6px 12px;
+    border: .1em solid white;
+    padding: 10px 14px;
     margin-left: 6px;
     margin-right: 6px;
-    border-radius: 4px;
-    color: white;
+    border-radius: 100px;
     cursor: pointer;
     font-size: 16px;
 }
 
-.options-button {
+.header-button {
     margin-top: 18px;
     margin-left: 8px;
     margin-right: 8px;
-    border-radius: 4px;
+    font-size: 14px;
+    background-color: $primary-color;
+    color: $text-color;
+}
+
+
+.options-button {   
+    margin-top: 18px;
+    margin-left: 8px;
+    margin-right: 8px;
+    font-weight: bold;
+    background-color: $primary-color;
+    color: $text-color;
 }
 
 .options-button:hover {
-    box-shadow: 0px 3px 4px white;
-    transform: translateY(-2px);
+    box-shadow: 0px 3px 4px $primary-color;
 }
 
 .options-selected {
@@ -30,8 +50,8 @@ button {
 }
 
 .header-selected {
-    color: white;
-    background-color: $primary-color;
+    font-weight: bold;
+    box-shadow: 0px 3px 4px $primary-color;
 }
 
 .mario-sports {

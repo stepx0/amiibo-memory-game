@@ -12,24 +12,24 @@ type HeaderProps = {
 const Header = (props: HeaderProps) => {
 
     return (
-        <>
-            <header className='header'>
+        <div className='header'>
+            <header>
                 {/*Mario Sports Superstars*/}
                 <button
-                    className='options-button mario-sports'
+                    className={`header-button mario-sports ${(props.currentSelectedGame === GameSeriesType.MarioSportsSuperstars) ? 'header-selected' : ''}`}
                     onClick={() => {
                         props.onGameSeriesSelected(GameSeriesType.MarioSportsSuperstars)
-                    }}>Mario Sports Superstars</button>
+                    }}>Mario Sports</button>
 
                 {/*Animal Crossing*/}
                 <button
-                    className='options-button animal-crossing'
+                    className={`header-button animal-crossing ${(props.currentSelectedGame === GameSeriesType.AnimalCrossing) ? 'header-selected' : ''}`}
                     onClick={() => {
                         props.onGameSeriesSelected(GameSeriesType.AnimalCrossing)
                     }}>Animal Crossing</button>
 
                 {/*Pokémon*/}
-                <button className='options-button pokemon'
+                <button className={`header-button pokemon ${(props.currentSelectedGame === GameSeriesType.Pokemon) ? 'header-selected' : ''}`}
                     onClick={() => {
                         props.onGameSeriesSelected(GameSeriesType.Pokemon)
                     }}>Pokémon</button>
@@ -61,7 +61,7 @@ const Header = (props: HeaderProps) => {
                     className='options-button new-game'
                     onClick={() => { props.onNewGameClicked() }}>New Game</button>
             </div>
-        </>
+        </div>
     )
 }
 

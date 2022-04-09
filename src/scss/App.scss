@@ -1,12 +1,15 @@
-$primary-color: #282c34;
-$primary-dark-color: #21252b;
+$primary-color: #042e40;
+$primary-dark-color: #021019;
+$color-accent: #F07F3C;
 $mario-sports-color: #b30000;
 $animal-crossing-color: #b35900;
 $pokemon-color: #005ab3;
+$text-color: #fff;
 
 .app-container {
-    background-color: $primary-dark-color;
-    height: 100vh;
+    background: rgb(2,16,25);
+    background: linear-gradient(180deg, $primary-dark-color 0%, $primary-color 100%);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,4 +1,5 @@
 import '../scss/card.scss'
+import '../scss/board.scss'
 import { Card } from "./CardsPresenter"
 
 type CardFrameProps = {
@@ -22,10 +23,14 @@ function CardFrame(props: CardFrameProps) {
                 <img className='front'
                     src={props.cardData.src}
                     alt={'card front'} />
-                <img className='back'
-                    src='/img/nintendo-logo.png'
-                    onClick={handleClick}
-                    alt='card back' />
+
+                <div className='back'>
+                    <img className='back-logo'
+                        src='/img/logo.svg'
+                        onClick={handleClick}
+                        alt='card back' />
+                </div>
+
             </div>
         </div>
     )

@@ -72,10 +72,21 @@ function Board(props: BoardProps) {
         setDisabled(false)
     }
 
+    function getGridsStyle(): string {
+        switch(props.difficulty) {
+            case Difficulty.Easy:
+                return 'cards-small-grid'
+            case Difficulty.Medium:
+                return 'cards-medium-grid'
+            case Difficulty.Advanced:
+                return 'cards-big-grid'
+
+        }
+    }
     return (
-        <div className='app'>
+        <div className='board'>
             <p className='board-label'> Turns: {turns}</p>
-            <div className={props.difficulty === Difficulty.Advanced ? 'cards-big-grid' : 'cards-small-grid'}>
+            <div className={`${getGridsStyle()}`}>
                 {cards?.map(card => (
                     <CardFrame key={card.id}
                         cardData={card}
