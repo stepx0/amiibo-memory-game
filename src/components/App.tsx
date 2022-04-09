@@ -1,6 +1,6 @@
-import { ApolloProvider } from '@apollo/client';
-import apolloCli from '../api/ApolloCli';
-import Game from './Game'
+import { ApolloProvider } from '@apollo/client'
+import apolloCli from 'api/ApolloCli'
+import Game from 'components/Game'
 
 const App = () => {
     return (

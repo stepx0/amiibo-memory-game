@@ -1,5 +1,5 @@
-import '../scss/card.scss'
-import { Card } from './CardsPresenter'
+import 'scss/card.scss'
+import { Card } from 'components/CardsPresenter'
 
 type CardFrameProps = {
     key: string,

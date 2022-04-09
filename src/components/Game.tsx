@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
-import { Amiibo, AmiiboQuery } from '../api/Queries'
-import { amiibosToCards } from '../api/Parsers'
-import { AMIIBOS_QUERY } from '../api/Queries'
-import { Card } from '../components/CardsPresenter'
-import Board from './Board'
-import CardsPresenter from './CardsPresenter'
+import { amiibosToCards } from 'api/Parsers'
+import { Amiibo, AmiiboQuery, AMIIBOS_QUERY } from 'api/Queries'
+import { Card } from 'components/CardsPresenter'
+import Board from 'components/Board'
+import CardsPresenter from 'components/CardsPresenter'
 import Header from './Header'
 
 export const enum GameSeriesType {

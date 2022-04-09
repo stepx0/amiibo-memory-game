@@ -1,5 +1,5 @@
-import '../scss/header.scss'
-import { Difficulty, GameSeriesType } from './Game'
+import 'scss/header.scss'
+import { Difficulty, GameSeriesType } from 'components/Game'
 
 type HeaderProps = {
     currentSelectedGame: GameSeriesType,

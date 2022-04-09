@@ -1,8 +1,8 @@
-import '../scss/board.scss'
+import 'scss/board.scss'
 import { useEffect, useState } from 'react'
-import CardFrame from './CardFrame'
-import { Card } from './CardsPresenter'
-import { Difficulty, GamePhase } from './Game'
+import CardFrame from 'components/CardFrame'
+import { Card } from 'components/CardsPresenter'
+import { Difficulty, GamePhase } from 'components/Game'
 
 
 type BoardProps = {

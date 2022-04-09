@@ -1,4 +1,4 @@
-import { Difficulty } from './Game'
+import { Difficulty } from 'components/Game'
 
 export type Card = {
     id: string,
