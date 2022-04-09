@@ -48,7 +48,7 @@ function Board(props: BoardProps) {
     // check if game is completed
     useEffect(() => {
         let unmatchedCard = cards?.find(card => card.isMatched === false)
-        
+
         if (!unmatchedCard && (cards?.length ?? 0) > 0) {
             setTimeout(() => props.onGameCompleted(GamePhase.Completed), 400)
         }
@@ -73,7 +73,7 @@ function Board(props: BoardProps) {
     }
 
     function getGridsStyle(): string {
-        switch(props.difficulty) {
+        switch (props.difficulty) {
             case Difficulty.Easy:
                 return 'cards-small-grid'
             case Difficulty.Medium:

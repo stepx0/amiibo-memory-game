@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Card } from '../components/CardsPresenter'
 import { Amiibo } from './Queries'
 
-const amiibosToCards = (amiibos: Amiibo[]) => {
+export const amiibosToCards = (amiibos: Amiibo[]) => {
     let parsedCards: Card[] = amiibos.map(amiibo => ({
         id: uuidv4(),
         src: amiibo.image,
@@ -11,5 +11,3 @@ const amiibosToCards = (amiibos: Amiibo[]) => {
     }))
     return parsedCards
 }
-
-export default amiibosToCards

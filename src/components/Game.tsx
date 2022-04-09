@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { Amiibo, AmiiboQuery } from '../api/Queries'
-import amiibosToCards from '../api/Parsers'
+import { amiibosToCards } from '../api/Parsers'
 import { AMIIBOS_QUERY } from '../api/Queries'
 import { Card } from '../components/CardsPresenter'
 import Board from './Board'
@@ -33,7 +33,7 @@ function Game() {
     const [gamePhase, setGamePhase] = useState<GamePhase>()
 
 
-    const [getAmiibos, { loading, data }] = useLazyQuery<AmiiboQuery>(AMIIBOS_QUERY, {
+    const [getAmiibos, { data }] = useLazyQuery<AmiiboQuery>(AMIIBOS_QUERY, {
         variables: {
             gameSeries: getParamForAPICall(gameSeries)
         }
@@ -42,24 +42,23 @@ function Game() {
     useEffect(() => {
         try {
             parseCards()
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }, [data])
 
     function parseCards() {
         let receivedAmiibos = data?.amiibosQuery?.amiibo
-            if (receivedAmiibos !== undefined) {
-                setCards(
-                    CardsPresenter<Amiibo>({
-                        items: receivedAmiibos,
-                        difficulty: difficulty,
-                        setCards: amiibosToCards
-                    })
-                )
-                setGamePhase(GamePhase.Ongoing)
-            }
+        if (receivedAmiibos !== undefined) {
+            setCards(
+                CardsPresenter<Amiibo>({
+                    items: receivedAmiibos,
+                    difficulty: difficulty,
+                    setCards: amiibosToCards
+                })
+            )
+            setGamePhase(GamePhase.Ongoing)
+        }
     }
 
 
