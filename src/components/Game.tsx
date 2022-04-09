@@ -43,7 +43,7 @@ function Game() {
             parseCards()
         } catch (e) {
             console.log(e)
-            alert("Oops, cand't load cards at the moment...")
+            alert("Oops, there's something wrong with cards... please try again later.")
         }
     }, [data])
 
@@ -81,7 +81,7 @@ function Game() {
         if (gamePhase === GamePhase.Ready) {
             getAmiibos()
         } else if (gamePhase === GamePhase.Completed)
-            alert("Congrats, you are a winner!!!")
+            alert("Congrats, you are a winner!")
     }, [gamePhase])
 
     // reloading game

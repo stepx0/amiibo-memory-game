@@ -59,15 +59,31 @@ button {
 .mario-sports {
     background-color: $mario-sports-color;
 }
+.mario-sports:active {
+    background-color: white;
+    color: $mario-sports-color;
+}
 
 .animal-crossing {
     background-color: $animal-crossing-color;
+}
+.animal-crossing:active {
+   background-color: white;
+    color: $animal-crossing-color;
 }
 
 .pokemon {
     background-color: $pokemon-color;
 }
+.pokemon:active {
+    background-color: white;
+    color: $pokemon-color;
+}
 
 .new-game {
     background-color: $primary-dark-color;
+}
+.new-game:active {
+    background-color: white;
+    color: $primary-dark-color;
 }

@@ -7,7 +7,7 @@ const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors) {
         graphQLErrors.map(({ message }) => {
             console.log(`GraphQL error ${message}`)
-            alert("Oops, cand't load cards at the moment...")
+            alert("Oops, couldn't download cards correctly.")
         })
     }
 })

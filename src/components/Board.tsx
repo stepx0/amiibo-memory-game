@@ -84,7 +84,7 @@ function Board(props: BoardProps) {
         }
     }
     return (
-        <div className='board'>
+        <div data-testid='board' className='board'>
             <p className='board-label'> Turns: {turns}</p>
             <div className={`${getGridsStyle()}`}>
                 {cards?.map(card => (

@@ -17,11 +17,11 @@ function CardFrame(props: CardFrameProps) {
     }
 
     return (
-        <div className='card'>
+        <div data-testid='card' className='card'>
             <div className={props.isFlipped ? 'flipped' : ''}>
                 <img className='front'
                     src={props.cardData.src}
-                    alt={'card front'} />
+                    alt='card front' />
 
                 <div className='back'>
                     <img className='back-logo'
