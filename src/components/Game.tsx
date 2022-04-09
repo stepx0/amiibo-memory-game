@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { Amiibo, AmiiboQuery } from '../api/Queries'
-import { amiibosToCards } from '../api/Parsers'
+import amiibosToCards from '../api/Parsers'
 import { AMIIBOS_QUERY } from '../api/Queries'
 import { Card } from '../components/CardsPresenter'
 import Board from './Board'
