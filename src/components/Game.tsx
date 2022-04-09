@@ -1,4 +1,3 @@
-import '../scss/app.scss'
 import { useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { Amiibo, AmiiboQuery } from '../api/Queries'
