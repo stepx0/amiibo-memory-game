@@ -43,16 +43,16 @@ function CardsPresenter<T>(props: CardsPresenterProps<T>) {
     }
 
     function randomArrayShuffle(array: T[]) {
-        let arrayCopy = [...array];
-        var currentIndex = arrayCopy.length, temporaryValue, randomIndex;
+        let arrayCopy = [...array]
+        var currentIndex = arrayCopy.length, temporaryValue, randomIndex
         while (0 !== currentIndex) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-            temporaryValue = arrayCopy[currentIndex];
-            arrayCopy[currentIndex] = arrayCopy[randomIndex];
-            arrayCopy[randomIndex] = temporaryValue;
+            randomIndex = Math.floor(Math.random() * currentIndex)
+            currentIndex -= 1
+            temporaryValue = arrayCopy[currentIndex]
+            arrayCopy[currentIndex] = arrayCopy[randomIndex]
+            arrayCopy[randomIndex] = temporaryValue
         }
-        return arrayCopy;
+        return arrayCopy
     }
 
     return prepareCards()

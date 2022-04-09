@@ -1,12 +1,13 @@
 
-import { ApolloClient, InMemoryCache, from } from '@apollo/client';
-import { onError } from "@apollo/client/link/error";
-import { RestLink } from 'apollo-link-rest';
+import { ApolloClient, InMemoryCache, from } from '@apollo/client'
+import { onError } from "@apollo/client/link/error"
+import { RestLink } from 'apollo-link-rest'
 
 const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors) {
         graphQLErrors.map(({ message }) => {
-            alert(`GraphQL error ${message}`);
+            console.log(`GraphQL error ${message}`)
+            alert("Oops, cand't load cards at the moment...")
         })
     }
 })
@@ -19,6 +20,6 @@ const link = from([
 const apolloCli = new ApolloClient({
     cache: new InMemoryCache(),
     link: link
-});
+})
 
-export default apolloCli;
+export default apolloCli

@@ -43,6 +43,7 @@ function Game() {
             parseCards()
         } catch (e) {
             console.log(e)
+            alert("Oops, cand't load cards at the moment...")
         }
     }, [data])
 
@@ -89,7 +90,6 @@ function Game() {
     }, [gameSeries])
 
     useEffect(() => {
-        console.log(gamePhase)
         parseCards()
     }, [difficulty])
 
