@@ -30,6 +30,7 @@ function CardsPresenter<T>(props: CardsPresenterProps<T>) {
         console.log(randomArrayShuffle(items).slice(0, numberOfCards))
         return randomArrayShuffle(items).slice(0, numberOfCards)
     }
+
     function getNumberOfNumber(difficulty: Difficulty): number {
         switch (difficulty) {
             case Difficulty.Easy:

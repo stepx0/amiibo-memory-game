@@ -1,0 +1,28 @@
+name: Test Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    name: Docker Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '16.8'
+      - name: Docker Login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build the Docker Image
+        run: |
+          docker build . --file Dockerfile --tag stepiasentin/amiibo-memory-game:latest
+      - name: Test Docker Image
+        run: |
+          docker run -e CI=true stepiasentin/amiibo-memory-game npm run test
+      - name: Docker Push
+        run: |
+          docker push ${{secrets.DOCKER_USER}}/amiibo-memory-game

@@ -1,5 +1,4 @@
 import '../scss/card.scss'
-import '../scss/board.scss'
 import { Card } from "./CardsPresenter"
 
 type CardFrameProps = {
