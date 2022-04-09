@@ -4,15 +4,9 @@ $mario-sports-color: #b30000;
 $animal-crossing-color: #b35900;
 $pokemon-color: #005ab3;
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
-}
-
-
-.App-container {
+.app-container {
     background-color: $primary-dark-color;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;

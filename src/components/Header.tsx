@@ -1,11 +1,11 @@
 import '../scss/header.scss'
-import { GameSeriesType, Difficulty, GamePhase } from '../models/models'
+import { Difficulty, GameSeriesType } from "./Game"
 
 type HeaderProps = {
     currentSelectedGame: GameSeriesType,
     currentSelectedDifficulty: Difficulty,
     onGameSeriesSelected: (gameType: GameSeriesType) => void,
-    onNewGameClicked: (gameStatus: GamePhase) => void,
+    onNewGameClicked: () => void,
     onDifficultySelected: (difficulty: Difficulty) => void,
 }
 
@@ -59,7 +59,7 @@ const Header = (props: HeaderProps) => {
                 {/*New Game*/}
                 <button
                     className='options-button new-game'
-                    onClick={() => { props.onNewGameClicked(GamePhase.Ready) }}>New Game</button>
+                    onClick={() => { props.onNewGameClicked() }}>New Game</button>
             </div>
         </>
     )

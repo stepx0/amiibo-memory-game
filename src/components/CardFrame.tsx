@@ -1,5 +1,5 @@
-import { Card } from '../models/models'
 import '../scss/card.scss'
+import { Card } from "./CardsPresenter"
 
 type CardFrameProps = {
     key: string,

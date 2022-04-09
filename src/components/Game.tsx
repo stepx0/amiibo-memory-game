@@ -1,13 +1,31 @@
+import '../scss/app.scss'
 import { useEffect, useState } from 'react'
-import { useQuery, useLazyQuery, useApolloClient } from '@apollo/client';
-import { Amiibo } from '../api/models'
+import { useLazyQuery } from '@apollo/client'
+import { Amiibo, AmiiboQuery } from '../api/queries'
 import { amiibosToCards } from '../api/parsers'
 import { AMIIBOS_QUERY } from '../api/queries'
-import { Card, Difficulty, GamePhase, GameSeriesType } from '../models/models'
+import { Card } from '../components/CardsPresenter'
 import Board from './Board'
 import CardsPresenter from './CardsPresenter'
 import Header from './Header'
 
+export const enum GameSeriesType {
+    MarioSportsSuperstars,
+    AnimalCrossing,
+    Pokemon
+}
+
+export const enum Difficulty {
+    Easy,
+    Medium,
+    Advanced
+}
+
+export const enum GamePhase {
+    Ready,
+    Ongoing,
+    Completed
+}
 
 function Game() {
     const [cards, setCards] = useState<Card[]>([])
@@ -15,30 +33,36 @@ function Game() {
     const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.Easy)
     const [gamePhase, setGamePhase] = useState<GamePhase>()
 
-     
-     const [getAmiibos, { loading, data }] = useLazyQuery<Amiibo[]>(AMIIBOS_QUERY, {
+
+    const [getAmiibos, { loading, data }] = useLazyQuery<AmiiboQuery>(AMIIBOS_QUERY, {
         variables: {
             gameSeries: getParamForAPICall(gameSeries)
         }
     })
 
     useEffect(() => {
-        console.log("query used!", data)
-        if(data !== undefined) {
-            console.log("data exists", data)
-            if (data.length > 0) {
+        try {
+            parseCards()
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }, [data])
+
+    function parseCards() {
+        let receivedAmiibos = data?.amiibosQuery?.amiibo
+            if (receivedAmiibos !== undefined) {
                 setCards(
                     CardsPresenter<Amiibo>({
-                        items: data,
+                        items: receivedAmiibos,
                         difficulty: difficulty,
                         setCards: amiibosToCards
                     })
                 )
                 setGamePhase(GamePhase.Ongoing)
             }
-        } 
-            
-    }, [data])
+    }
+
 
     function getParamForAPICall(gameType: GameSeriesType): string {
         switch (gameType) {
@@ -53,22 +77,10 @@ function Game() {
             }
         }
     }
- 
+
     // game phase management
     useEffect(() => {
         if (gamePhase === GamePhase.Ready) {
-            /* ApiCaller({
-                gameSeries: gameSeries,
-                callback: setAmiibos
-            }) */
-            /* apolloCli.queryData({
-                gameSeries: gameSeries,
-                callback: setAmiibos
-            }) */
-            /* ApolloCli({
-                gameSeries: gameSeries,
-                callback: setAmiibos
-            }) */
             getAmiibos()
         } else if (gamePhase === GamePhase.Completed)
             alert("Congrats, you are a winner!!!")
@@ -77,16 +89,24 @@ function Game() {
     // reloading game
     useEffect(() => {
         setGamePhase(GamePhase.Ready)
-    }, [gameSeries, difficulty])
+    }, [gameSeries])
 
+    useEffect(() => {
+        console.log(gamePhase)
+        parseCards()
+    }, [difficulty])
+
+    function onNewGameClicked() {
+        parseCards()
+    }
 
     return (
-        <div className="App-container">
+        <div className="app-container">
             <Header
                 currentSelectedGame={gameSeries}
                 currentSelectedDifficulty={difficulty}
                 onGameSeriesSelected={setGameSeries}
-                onNewGameClicked={setGamePhase}
+                onNewGameClicked={onNewGameClicked}
                 onDifficultySelected={setDifficulty} />
             <Board cards={cards}
                 difficulty={difficulty}

@@ -1,9 +1,9 @@
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, from } from '@apollo/client';
 import { onError } from "@apollo/client/link/error";
 import { RestLink } from 'apollo-link-rest';
 import Game from './Game'
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors) {
         graphQLErrors.map(({ message }) => {
             alert(`GraphQL error ${message}`);
