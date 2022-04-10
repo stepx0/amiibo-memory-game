@@ -11,8 +11,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 
-RUN npm install --force --silent 
-RUN npm install react-scripts@3.4.1 -g --force --silent
+RUN npm install --force
+RUN npm install react-scripts@3.4.1 -g --force
 
 # add app
 COPY . ./
