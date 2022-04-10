@@ -16,7 +16,6 @@ type CardsPresenterProps<T> = {
 function CardsPresenter<T>(props: CardsPresenterProps<T>) {
 
     function prepareCards(): Card[] {
-        console.log("preparing CARDS")
         let slicedCards = sliceReceivedItems(props.items, getNumberOfNumber(props.difficulty))
         let pairedCards = randomArrayShuffle([...slicedCards, ...slicedCards])
         return props.setCards(pairedCards)
@@ -27,7 +26,6 @@ function CardsPresenter<T>(props: CardsPresenterProps<T>) {
             alert("There are not enough cards in this game series!\n\nTry another one please.")
             return []
         }
-        console.log(randomArrayShuffle(items).slice(0, numberOfCards))
         return randomArrayShuffle(items).slice(0, numberOfCards)
     }
 
