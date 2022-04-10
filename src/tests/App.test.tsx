@@ -1,14 +1,13 @@
-import { act, fireEvent, getByText, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import App from 'components/App'
-import { MockedProvider } from '@apollo/client/testing'
 
-test('check visibility', () => {
+test('render app and buttons are visible', () => {
     const { getByText } = render(<App />)
 
     const easyButton = screen.queryByText('Easy')
     const mediumButton = screen.queryByText('Medium')
     const advancedButton = screen.queryByText('Advanced')
-    
+
     expect(easyButton).toBeVisible()
     expect(mediumButton).toBeVisible()
     expect(advancedButton).toBeVisible()
@@ -17,13 +16,13 @@ test('check visibility', () => {
     expect(grid).toBeVisible()
 })
 
-test('play a match', async () => {
+test('cards rendering test', async () => {
     render(<App />)
 
     const easyButton = screen.queryByText('Easy')
     const mediumButton = screen.queryByText('Medium')
     const advancedButton = screen.queryByText('Advanced')
-    
+
     expect(easyButton).toBeVisible()
     expect(mediumButton).toBeVisible()
     expect(advancedButton).toBeVisible()
@@ -31,7 +30,19 @@ test('play a match', async () => {
     const grid = screen.getByTestId('board')
     expect(grid).toBeVisible()
 
-    //const items = screen.queryAllByTestId("card")
-    //expect(items.length).toBe(8)    
+    // testing easy game layout
+    if (easyButton != null)
+        fireEvent.click(easyButton)
+    await waitFor(() => expect(screen.queryAllByTestId("card").length).toBe(8))
+
+    // testing medium game layout
+    if (mediumButton != null)
+        fireEvent.click(mediumButton)
+    await waitFor(() => expect(screen.queryAllByTestId("card").length).toBe(12))
+
+    // testing advanced game layout
+    if (advancedButton != null)
+        fireEvent.click(advancedButton)
+    await waitFor(() => expect(screen.queryAllByTestId("card").length).toBe(18))
 })
 
