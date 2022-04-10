@@ -17,13 +17,14 @@ function CardFrame(props: CardFrameProps) {
     }
 
     return (
-        <div data-testid='card' className='card'>
-            <div className={props.isFlipped ? 'flipped' : ''}>
+        <div className='card'>
+            <div  className={props.isFlipped ? 'flipped' : 'not-flipped'}
+            data-testid={`card ${props.isFlipped ? 'flipped' : 'not-flipped'}`}>
                 <img className='front'
                     src={props.cardData.src}
                     alt='card front' />
 
-                <div className='back'
+                <div data-testid='back' className='back'
                     onClick={handleClick}>
                     <img className='back-logo'
                         src='/img/logo.svg'

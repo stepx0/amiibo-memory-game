@@ -37,9 +37,10 @@ function Game() {
         }
     })
 
+    // get cards from query
     useEffect(() => {
         try {
-            parseNewCards()
+            getCardsToDisplay()
         } catch (e) {
             console.log(e)
             alert("Oops, there's something wrong with cards... please try again later.")
@@ -68,17 +69,18 @@ function Game() {
             alert("Congrats, you are a winner!")
     }, [gamePhase])
 
-    // query new data
+    // to query new amiibos
     useEffect(() => {
         setGamePhase(GamePhase.Ready)
     }, [gameSeries])
 
-    // 
+    
     useEffect(() => {
-        parseNewCards()
+        getCardsToDisplay()
     }, [difficulty])
 
-    function parseNewCards() {
+    // get cards from presenter
+    function getCardsToDisplay() {
         let queriedAmiibos = data?.amiibosQuery?.amiibo
         if (queriedAmiibos !== undefined) {
             setCards(
@@ -98,7 +100,7 @@ function Game() {
                 currentSelectedGame={gameSeries}
                 currentSelectedDifficulty={difficulty}
                 onGameSeriesSelected={setGameSeries}
-                onNewGameClicked={parseNewCards}
+                onNewGameClicked={getCardsToDisplay}
                 onDifficultySelected={setDifficulty} />
             <Board cards={cards}
                 difficulty={difficulty}
@@ -108,4 +110,3 @@ function Game() {
 }
 
 export default Game
-
