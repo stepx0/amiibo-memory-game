@@ -40,19 +40,19 @@ const Header = (props: HeaderProps) => {
                 <button className={`options-button ${(props.currentSelectedDifficulty === Difficulty.Easy) ? 'options-selected' : ''}`}
                     onClick={() => {
                         props.onDifficultySelected(Difficulty.Easy)
-                    }}> Easy </button>
+                    }}> Easy</button>
 
                 {/*Medium*/}
                 <button className={`options-button ${(props.currentSelectedDifficulty === Difficulty.Medium) ? 'options-selected' : ''}`}
                     onClick={() => {
                         props.onDifficultySelected(Difficulty.Medium)
-                    }}> Medium </button>
+                    }}> Medium</button>
 
                 {/*Advanced*/}
                 <button className={`options-button ${(props.currentSelectedDifficulty === Difficulty.Advanced) ? 'options-selected' : ''}`}
                     onClick={() => {
                         props.onDifficultySelected(Difficulty.Advanced)
-                    }}> Advanced </button>
+                    }}> Advanced</button>
             </div>
             <div className='small-separator'></div>
             <div>
