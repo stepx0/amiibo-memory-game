@@ -1,49 +1,52 @@
 @import 'app';
 
-.header {
-    border: 1px white;
-    /* desktop screen */
-    @media (min-width: 801px){
-    }
-     
-    /* mobile screen */
-    @media (max-width: 800px){
-    }
+.big-separator {
+    height:1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 25%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 75%);
 }
 
-button {
+.small-separator {
+    height:1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 35%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 65%);
+}
+
+@mixin active-button($color) {
+    color: $color;
+    background-color: white;
+}
+
+@mixin button {
     -webkit-tap-highlight-color: transparent;
     padding: 10px 14px;
-    margin-left: 6px;
-    margin-right: 6px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 12px;
+    margin-bottom: 12px;
     border-radius: 100px;
+    font-weight: bold;
+    border: .1em solid white;
     cursor: pointer;
-    font-size: 16px;
 }
 
 .header-button {
-    border: .1em solid white;
-    margin-top: 18px;
-    margin-left: 8px;
-    margin-right: 8px;
+    @include button;
     font-size: 14px;
+    margin-top: 12px;
     background-color: $primary-color;
     color: $text-color;
 }
-
 
 .options-button {
-    border: .1em solid white;
-    margin-top: 18px;
-    margin-left: 8px;
-    margin-right: 8px;
-    font-weight: bold;
+    @include button;
+    font-size: 16px;
     background-color: $primary-color;
     color: $text-color;
-}
-
-.options-button:hover {
-    box-shadow: 0px 3px 4px $primary-color;
+    &:hover {
+        box-shadow: 0px 3px 4px $primary-color;   
+    }
+    &:active {
+        @include active-button($primary-color)
+    }
 }
 
 .options-selected {
@@ -58,32 +61,28 @@ button {
 
 .mario-sports {
     background-color: $mario-sports-color;
-}
-.mario-sports:active {
-    background-color: white;
-    color: $mario-sports-color;
+    &:active {
+        @include active-button($mario-sports-color)
+    }
 }
 
 .animal-crossing {
     background-color: $animal-crossing-color;
-}
-.animal-crossing:active {
-   background-color: white;
-    color: $animal-crossing-color;
+    &:active {
+        @include active-button($animal-crossing-color)
+    }
 }
 
 .pokemon {
     background-color: $pokemon-color;
-}
-.pokemon:active {
-    background-color: white;
-    color: $pokemon-color;
+    &:active {
+        @include active-button($pokemon-color)
+    }
 }
 
 .new-game {
     background-color: $primary-dark-color;
-}
-.new-game:active {
-    background-color: white;
-    color: $primary-dark-color;
+    &:active {
+        @include active-button($primary-dark-color);
+    }
 }

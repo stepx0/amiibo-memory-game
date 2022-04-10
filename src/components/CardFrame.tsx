@@ -23,13 +23,12 @@ function CardFrame(props: CardFrameProps) {
                     src={props.cardData.src}
                     alt='card front' />
 
-                <div className='back'>
+                <div className='back'
+                    onClick={handleClick}>
                     <img className='back-logo'
                         src='/img/logo.svg'
-                        onClick={handleClick}
                         alt='card back' />
                 </div>
-
             </div>
         </div>
     )

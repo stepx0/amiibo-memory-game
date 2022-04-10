@@ -34,7 +34,7 @@ const Header = (props: HeaderProps) => {
                         props.onGameSeriesSelected(GameSeriesType.Pokemon)
                     }}>Pokémon</button>
             </header>
-
+            <div className='big-separator'></div>
             <div>
                 {/*Easy*/}
                 <button className={`options-button ${(props.currentSelectedDifficulty === Difficulty.Easy) ? 'options-selected' : ''}`}
@@ -54,12 +54,12 @@ const Header = (props: HeaderProps) => {
                         props.onDifficultySelected(Difficulty.Advanced)
                     }}> Advanced </button>
             </div>
-
+            <div className='small-separator'></div>
             <div>
                 {/*New Game*/}
                 <button
                     className='options-button new-game'
-                    onClick={() => { props.onNewGameClicked() }}>New Game</button>
+                    onClick={() => { props.onNewGameClicked() }}>Restart</button>
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ $pokemon-color: #005ab3;
 $text-color: #fff;
 
 .app-container {
-    background: rgb(2,16,25);
+    background: $primary-dark-color;
     background: linear-gradient(180deg, $primary-dark-color 0%, $primary-color 100%);
     min-height: 100vh;
     display: flex;

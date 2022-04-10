@@ -1,7 +1,9 @@
 @import 'app';
 
 .board {
-    margin: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 24px;
 }
 
 .board-label {
@@ -18,23 +20,17 @@
     height:100%;
 }
 
-@mixin cards-big-margin {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
 .cards-small-grid {
     @include cards-grid;
     
     /* desktop screen */
-    @media (min-width: 801px){
+    @media (min-width: 801px) {
         grid-template-columns: repeat(4, 1fr);
     }
      
     /* mobile screen */
-    @media (max-width: 800px){
+    @media (max-width: 800px) {
         grid-template-columns: repeat(2, 1fr);
-        
     }
 }
 
@@ -42,15 +38,13 @@
     @include cards-grid;
     
     /* desktop screen */
-    @media (min-width: 801px){
+    @media (min-width: 801px) {
         grid-template-columns: repeat(4, 1fr);
     }
      
     /* mobile screen */
-    @media (max-width: 800px){
+    @media (max-width: 800px) {
         grid-template-columns: repeat(3, 1fr);
-        @include cards-big-margin;
-
     }
 }
 
@@ -58,13 +52,12 @@
     @include cards-grid;
        
     /* desktop screen */
-    @media (min-width: 801px){
+    @media (min-width: 801px) {
         grid-template-columns: repeat(6, 1fr);
     }
      
     /* mobile screen */
-    @media (max-width: 800px){
+    @media (max-width: 800px) {
         grid-template-columns: repeat(3, 1fr);
-        @include cards-big-margin;
     }
 }

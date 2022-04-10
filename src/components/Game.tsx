@@ -31,7 +31,6 @@ function Game() {
     const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.Easy)
     const [gamePhase, setGamePhase] = useState<GamePhase>()
 
-
     const [getAmiibos, { data }] = useLazyQuery<AmiiboQuery>(AMIIBOS_QUERY, {
         variables: {
             gameSeries: getParamForAPICall(gameSeries)
@@ -40,27 +39,12 @@ function Game() {
 
     useEffect(() => {
         try {
-            parseCards()
+            parseNewCards()
         } catch (e) {
             console.log(e)
             alert("Oops, there's something wrong with cards... please try again later.")
         }
     }, [data])
-
-    function parseCards() {
-        let receivedAmiibos = data?.amiibosQuery?.amiibo
-        if (receivedAmiibos !== undefined) {
-            setCards(
-                CardsPresenter<Amiibo>({
-                    items: receivedAmiibos,
-                    difficulty: difficulty,
-                    setCards: amiibosToCards
-                })
-            )
-            setGamePhase(GamePhase.Ongoing)
-        }
-    }
-
 
     function getParamForAPICall(gameType: GameSeriesType): string {
         switch (gameType) {
@@ -78,23 +62,34 @@ function Game() {
 
     // game phase management
     useEffect(() => {
-        if (gamePhase === GamePhase.Ready) {
+        if (gamePhase === GamePhase.Ready)
             getAmiibos()
-        } else if (gamePhase === GamePhase.Completed)
+        else if (gamePhase === GamePhase.Completed)
             alert("Congrats, you are a winner!")
     }, [gamePhase])
 
-    // reloading game
+    // query new data
     useEffect(() => {
         setGamePhase(GamePhase.Ready)
     }, [gameSeries])
 
+    // 
     useEffect(() => {
-        parseCards()
+        parseNewCards()
     }, [difficulty])
 
-    function onNewGameClicked() {
-        parseCards()
+    function parseNewCards() {
+        let queriedAmiibos = data?.amiibosQuery?.amiibo
+        if (queriedAmiibos !== undefined) {
+            setCards(
+                CardsPresenter<Amiibo>({
+                    items: queriedAmiibos,
+                    difficulty: difficulty,
+                    setCards: amiibosToCards
+                })
+            )
+            setGamePhase(GamePhase.Ongoing)
+        }
     }
 
     return (
@@ -103,7 +98,7 @@ function Game() {
                 currentSelectedGame={gameSeries}
                 currentSelectedDifficulty={difficulty}
                 onGameSeriesSelected={setGameSeries}
-                onNewGameClicked={onNewGameClicked}
+                onNewGameClicked={parseNewCards}
                 onDifficultySelected={setDifficulty} />
             <Board cards={cards}
                 difficulty={difficulty}
