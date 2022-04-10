@@ -8,6 +8,5 @@ Steps:
 Notes:
 Apollo client failed to install in React 18, but I found this workaroud that fortunately solved the issue:
 " Until Apollo updates the peer dependencies in its package.json file, you can ignore all peerDependencies when installing @apollo/client library, like that:
-npm i --legacy-peer-deps @apollo/client "
-
-So now I have to always run "npm i" followed by "--force" whenever I need to install dependencies.
+npm i --legacy-peer-deps @apollo/client ".
+Because of this, now I have to always run "npm i" followed by "--force" whenever I need to install dependencies.
