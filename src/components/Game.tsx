@@ -74,7 +74,7 @@ function Game() {
         setGamePhase(GamePhase.Ready)
     }, [gameSeries])
 
-    
+
     useEffect(() => {
         getCardsToDisplay()
     }, [difficulty])

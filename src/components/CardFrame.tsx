@@ -18,8 +18,8 @@ function CardFrame(props: CardFrameProps) {
 
     return (
         <div className='card'>
-            <div  className={props.isFlipped ? 'flipped' : 'not-flipped'}
-            data-testid={`card ${props.isFlipped ? 'flipped' : 'not-flipped'}`}>
+            <div className={props.isFlipped ? 'flipped' : 'not-flipped'}
+                data-testid={`card ${props.isFlipped ? 'flipped' : 'not-flipped'}`}>
                 <img className='front'
                     src={props.cardData.src}
                     alt='card front' />
