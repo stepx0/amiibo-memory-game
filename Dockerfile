@@ -16,7 +16,8 @@ RUN npm install
 RUN npm install react-scripts@5.0.0 -g 
 
 # add app
-COPY . ./
+COPY src ./src
+COPY public ./public
 
 # start app
 EXPOSE 3000
