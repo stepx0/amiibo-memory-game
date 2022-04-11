@@ -4,7 +4,7 @@ import { debug } from 'console'
 
 test('game series buttons exist', async () => {
     render(<App />)
-    
+
     const marioButton = screen.queryByText('Mario Sports')
     const animalCrossingButton = screen.queryByText('Animal Crossing')
     const pokemonButton = screen.queryByText('Pokémon')
@@ -107,7 +107,7 @@ test('complete game test', async () => {
         await filtered.forEach(async (i) => {
             fireEvent.click(cardBacks[index])
             fireEvent.click(cardBacks[i])
-            await new Promise((r) => setTimeout(r, 500))
+            jest.setTimeout(500)
             //todo: code after this Promise doesn't get triggered!!
             await checkFlipped()
             debug("clicked:", index, i)
