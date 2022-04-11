@@ -5,12 +5,9 @@ on: [push]
 jobs:
   build:
     name: Docker Pipeline
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
-        with:
-          node-version: '16.8'
       - name: Docker Login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
