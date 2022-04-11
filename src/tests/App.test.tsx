@@ -2,6 +2,30 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import App from 'components/App'
 import { debug } from 'console'
 
+test('game series buttons exist', async () => {
+    render(<App />)
+    
+    const marioButton = screen.queryByText('Mario Sports')
+    const animalCrossingButton = screen.queryByText('Animal Crossing')
+    const pokemonButton = screen.queryByText('Pokémon')
+
+    expect(marioButton).toBeVisible()
+    expect(animalCrossingButton).toBeVisible()
+    expect(pokemonButton).toBeVisible()
+})
+
+test('difficulty buttons exist', async () => {
+    render(<App />)
+
+    const easyButton = screen.queryByText('Easy')
+    const mediumButton = screen.queryByText('Medium')
+    const advancedButton = screen.queryByText('Advanced')
+
+    expect(easyButton).toBeVisible()
+    expect(mediumButton).toBeVisible()
+    expect(advancedButton).toBeVisible()
+})
+
 test('cards clicking test', async () => {
     render(<App />)
 

@@ -1,17 +1,12 @@
-import ReactDOM from 'react-dom/client'
 import './scss/index.scss'
-import App from './components/App'
-import reportWebVitals from './reportWebVitals'
-import { StrictMode } from 'react'
+import ReactDOM from "react-dom";
+import App from "components/App";
+import reportWebVitals from "reportWebVitals";
+import { StrictMode } from "react";
 
-const root = ReactDOM.createRoot(
-    document.getElementById("root") as HTMLDivElement
-)
-root.render(
-    <StrictMode>
-        <App />
-    </StrictMode>
-)
+ReactDOM.render(<StrictMode>
+    <App />
+</StrictMode>, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
