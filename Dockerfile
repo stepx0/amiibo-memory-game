@@ -14,6 +14,7 @@ COPY package-lock.json ./
 COPY tsconfig.json ./
 
 RUN npm install 
+RUN npm install --only=dev
 RUN npm install react-scripts@5.0.0 -g 
 
 # add app

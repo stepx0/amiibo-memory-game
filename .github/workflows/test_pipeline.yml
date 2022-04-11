@@ -19,7 +19,7 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Build the Docker Image
         run: |
-          docker build --progress plain --tag stepiasentin/amiibo-memory-game:latest --no-cache .
+          docker build --pull --progress plain --tag stepiasentin/amiibo-memory-game:latest --no-cache=true .
       - name: Test Docker Image
         run: |
           docker run -e CI=true stepiasentin/amiibo-memory-game npm run test
