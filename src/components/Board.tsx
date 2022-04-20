@@ -50,7 +50,7 @@ function Board(props: BoardProps) {
         let unmatchedCard = cards?.find(card => card.isMatched === false)
 
         if (!unmatchedCard && (cards?.length ?? 0) > 0) {
-            setTimeout(() => props.onGameCompleted(GamePhase.Completed), 400)
+            props.onGameCompleted(GamePhase.Completed)
         }
     }, [cards])
 
